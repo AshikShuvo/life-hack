@@ -33,6 +33,10 @@ export class UserService {
         })
     }
     async getAll():Promise<User[]>{
-        return await this.prismaService.user.findMany();
+        return await this.prismaService.user.findMany({
+            include:{
+                login:true
+            }
+        });
     }
 }

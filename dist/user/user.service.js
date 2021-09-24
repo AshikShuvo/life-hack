@@ -40,7 +40,11 @@ let UserService = class UserService {
         });
     }
     async getAll() {
-        return await this.prismaService.user.findMany();
+        return await this.prismaService.user.findMany({
+            include: {
+                login: true
+            }
+        });
     }
 };
 UserService = __decorate([
