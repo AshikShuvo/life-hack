@@ -1,0 +1,17 @@
+### User Register
+
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "email":"ashik@gmail.com",
+    "phone":"01943723874",
+    "firstName":"dfjhdf",
+    "lastName":"dfkdfs",
+    "password":"fdfkjsd"
+}
+
+### get all user
+
+GET http://localhost:3000/user
+Content-Type: application/json

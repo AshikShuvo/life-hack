@@ -4,7 +4,15 @@ export class UserDto{
     phone: string;
     firstName:  string;
     lastName: string;
-    login: LoginDto;
+    password:string;
+    
+}
+export class CreateUserDto{
+  email:string;
+  phone:string;
+  firstName:string;
+  lastName:string;
+  login:LoginDto
 }
 export class LoginDto{
   userName: string;
