@@ -4,14 +4,24 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "email":"ashik1996@gmail.com",
+    "email":"ashik1996@outlook.com",
     "phone":"01943723874",
-    "firstName":"ashik",
+    "firstName":"ashik ahmmed",
     "lastName":"shuvo",
-    "password":"password"
+    "password":"password_123"
 }
 
 ### get all user
 
 GET http://localhost:3000/user
 Content-Type: application/json
+
+
+### signIn
+Post http://localhost:3000/user/local/signIn
+Content-Type: application/json
+
+{
+    "email":"ashik1996@outlook.com",
+    "password":"password_123"
+}

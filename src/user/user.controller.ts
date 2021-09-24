@@ -1,7 +1,7 @@
 import { Body, Controller,Get,Post } from '@nestjs/common';
 import { User,Prisma } from '.prisma/client';
 import { UserService } from './user.service';
-import {UserDto,CreateUserDto} from './dto'
+import {UserDto,CreateUserDto, signInDto} from './dto'
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService){}
@@ -17,6 +17,13 @@ export class UserController {
         }
         return await this.userService.createUser(createUser); 
     }
+
+    @Post("local/signIn")
+    async localSignIn(@Body()signInDto:signInDto){
+        return await this.userService.localSignIn(signInDto);
+    }
+
+    
     @Get()
     async getAllUser():Promise<User[]>{
         return await this.userService.getAll()

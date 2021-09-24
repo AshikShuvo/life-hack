@@ -39,6 +39,23 @@ let UserService = class UserService {
             },
         });
     }
+    async localSignIn(signInDto) {
+        const user = await this.prismaService.user.findFirst({
+            where: {
+                email: signInDto.email
+            },
+            include: {
+                login: true,
+            },
+        });
+        if (!user)
+            throw new common_1.UnauthorizedException("user does not exists");
+        const passwordMatch = await bcrypt.compare(signInDto.password, user.login.password);
+        console.log(passwordMatch);
+        if (!passwordMatch)
+            throw new common_1.UnauthorizedException("password does not match");
+        return user;
+    }
     async getAll() {
         return await this.prismaService.user.findMany({
             include: {

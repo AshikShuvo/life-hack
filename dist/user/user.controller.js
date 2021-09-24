@@ -28,6 +28,9 @@ let UserController = class UserController {
             } });
         return await this.userService.createUser(createUser);
     }
+    async localSignIn(signInDto) {
+        return await this.userService.localSignIn(signInDto);
+    }
     async getAllUser() {
         return await this.userService.getAll();
     }
@@ -39,6 +42,13 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.UserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Post)("local/signIn"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.signInDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "localSignIn", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

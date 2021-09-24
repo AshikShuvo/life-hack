@@ -1,7 +1,7 @@
 import { User,Prisma } from '.prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto } from './dto';
+import { CreateUserDto, signInDto } from './dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -31,6 +31,21 @@ export class UserService {
                 login: true,
               },
         })
+    }
+    async localSignIn(signInDto:signInDto){
+        const user=await this.prismaService.user.findFirst({
+            where:{
+                email:signInDto.email
+            },
+            include: {
+                login: true,
+              },
+        })
+        if(!user)throw new UnauthorizedException("user does not exists");
+        const passwordMatch=await bcrypt.compare(signInDto.password,user.login.password);
+        console.log(passwordMatch)
+       if( !passwordMatch) throw new UnauthorizedException("password does not match");
+        return user;
     }
     async getAll():Promise<User[]>{
         return await this.prismaService.user.findMany({
