@@ -4,11 +4,11 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "email":"ashik@gmail.com",
+    "email":"ashik1996@gmail.com",
     "phone":"01943723874",
-    "firstName":"dfjhdf",
-    "lastName":"dfkdfs",
-    "password":"fdfkjsd"
+    "firstName":"ashik",
+    "lastName":"shuvo",
+    "password":"password"
 }
 
 ### get all user
