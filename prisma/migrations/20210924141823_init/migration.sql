@@ -5,6 +5,7 @@ CREATE TABLE "User" (
     "phone" TEXT,
     "firstName" TEXT,
     "lastName" TEXT,
+    "loginId" INTEGER NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -15,16 +16,15 @@ CREATE TABLE "Login" (
     "userName" TEXT NOT NULL,
     "salt" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Login_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Login_userName_key" ON "Login"("userName");
+CREATE UNIQUE INDEX "User_loginId_unique" ON "User"("loginId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Login_userId_unique" ON "Login"("userId");
+CREATE UNIQUE INDEX "Login_userName_key" ON "Login"("userName");
 
 -- AddForeignKey
-ALTER TABLE "Login" ADD CONSTRAINT "Login_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_loginId_fkey" FOREIGN KEY ("loginId") REFERENCES "Login"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
