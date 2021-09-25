@@ -13,9 +13,11 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = require("bcrypt");
+const auth_service_1 = require("../auth/auth.service");
 let UserService = class UserService {
-    constructor(prismaService) {
+    constructor(prismaService, authService) {
         this.prismaService = prismaService;
+        this.authService = authService;
     }
     async createUser(data) {
         const salt = bcrypt.genSaltSync(10);
@@ -54,7 +56,7 @@ let UserService = class UserService {
         console.log(passwordMatch);
         if (!passwordMatch)
             throw new common_1.UnauthorizedException("password does not match");
-        return user;
+        return this.authService.signUser(user.id, user.email, user.firstName);
     }
     async getAll() {
         return await this.prismaService.user.findMany({
@@ -66,7 +68,7 @@ let UserService = class UserService {
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService, auth_service_1.AuthService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

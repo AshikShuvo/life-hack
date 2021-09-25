@@ -5,8 +5,6 @@ export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
     createUser(user: UserDto): Promise<User>;
-    localSignIn(signInDto: signInDto): Promise<User & {
-        login: import(".prisma/client").Login;
-    }>;
+    localSignIn(signInDto: signInDto): Promise<string>;
     getAllUser(): Promise<User[]>;
 }

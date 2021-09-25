@@ -3,10 +3,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto, signInDto } from './dto';
 import * as bcrypt from 'bcrypt';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UserService {
-    constructor(private readonly prismaService:PrismaService){}
+    constructor(private readonly prismaService:PrismaService,private readonly authService:AuthService){}
 
    async createUser(data:CreateUserDto):Promise<User>{
        const salt = bcrypt.genSaltSync(10);
@@ -32,7 +33,7 @@ export class UserService {
               },
         })
     }
-    async localSignIn(signInDto:signInDto){
+    async localSignIn(signInDto:signInDto):Promise<string>{
         const user=await this.prismaService.user.findFirst({
             where:{
                 email:signInDto.email
@@ -45,7 +46,7 @@ export class UserService {
         const passwordMatch=await bcrypt.compare(signInDto.password,user.login.password);
         console.log(passwordMatch)
        if( !passwordMatch) throw new UnauthorizedException("password does not match");
-        return user;
+        return this.authService.signUser(user.id,user.email,user.firstName);
     }
     async getAll():Promise<User[]>{
         return await this.prismaService.user.findMany({

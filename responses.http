@@ -15,6 +15,7 @@ Content-Type: application/json
 
 GET http://localhost:3000/user
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 
 ### signIn
