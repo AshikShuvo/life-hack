@@ -18,6 +18,7 @@ model User {
   lastName  String?
   login     Login   @relation(fields: [loginId], references: [id])
   loginId   Int
+  todos     Todo[]
 }
 
 model Login {
@@ -26,4 +27,23 @@ model Login {
   salt     String
   password String
   user User?
+}
+model Todo{
+  id  Int @id @default(autoincrement())
+  name String
+  description String?
+  status TodoStatus @default(OPEN)
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+  startingDate DateTime?
+  estimatedDate DateTime?
+  rejectedAt DateTime?
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+enum TodoStatus {
+  OPEN
+  COMPLETED
+  PAUSE
+  REJECTED
 }

@@ -4,7 +4,7 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "email":"ashik1996@outlook.com",
+    "email":"ashik1999@outlook.com",
     "phone":"01943723874",
     "firstName":"ashik ahmmed",
     "lastName":"shuvo",
@@ -23,6 +23,6 @@ Post http://localhost:3000/user/local/signIn
 Content-Type: application/json
 
 {
-    "email":"ashik1996@outlook.com",
+    "email":"ashik1999@outlook.com",
     "password":"password_123"
 }
