@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const todo_service_1 = require("./todo.service");
 const create_todo_dto_1 = require("./dto/create-todo.dto");
 const update_todo_dto_1 = require("./dto/update-todo.dto");
+const passport_1 = require("@nestjs/passport");
 let TodoController = class TodoController {
     constructor(todoService) {
         this.todoService = todoService;
@@ -38,11 +39,12 @@ let TodoController = class TodoController {
     }
 };
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_todo_dto_1.CreateTodoDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TodoController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

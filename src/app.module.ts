@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [PrismaModule, UserModule, AuthModule, TodoModule],
