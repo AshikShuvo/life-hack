@@ -22,11 +22,15 @@ let TodoController = class TodoController {
     constructor(todoService) {
         this.todoService = todoService;
     }
-    create(createTodoDto) {
-        return this.todoService.create(createTodoDto);
+    async create(createTodoDto, req) {
+        const { userId } = req.user;
+        createTodoDto.authorId = userId;
+        return await this.todoService.create(createTodoDto);
     }
-    findAll() {
-        return this.todoService.findAll();
+    async findAll(req) {
+        const { userId } = req.user;
+        console.log(userId);
+        return await this.todoService.findAll(userId);
     }
     findOne(id) {
         return this.todoService.findOne(+id);
@@ -42,15 +46,18 @@ __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_todo_dto_1.CreateTodoDto]),
+    __metadata("design:paramtypes", [create_todo_dto_1.CreateTodoDto, Object]),
     __metadata("design:returntype", Promise)
 ], TodoController.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], TodoController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),

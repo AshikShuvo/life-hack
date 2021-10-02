@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -10,13 +10,17 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
   @UseGuards(AuthGuard("jwt"))
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto):Promise<Todo> {
-    return this.todoService.create(createTodoDto);
+ async create(@Body() createTodoDto: CreateTodoDto,@Request() req:any):Promise<Todo> {
+  const {userId}=req.user;
+   createTodoDto.authorId=userId;
+    return await this.todoService.create(createTodoDto);
   }
-
+  @UseGuards(AuthGuard("jwt"))
   @Get()
-  findAll() {
-    return this.todoService.findAll();
+  async findAll(@Request() req:any):Promise<Todo[]> {
+    const {userId}=req.user;
+    console.log(userId)
+    return await this.todoService.findAll(userId);
   }
 
   @Get(':id')

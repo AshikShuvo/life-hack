@@ -21,8 +21,13 @@ let TodoService = class TodoService {
             data: createTodoDto
         });
     }
-    findAll() {
-        return `This action returns all todo`;
+    async findAll(id) {
+        console.log(id);
+        return await this.prismaService.todo.findMany({
+            where: {
+                authorId: id
+            }
+        });
     }
     findOne(id) {
         return `This action returns a #${id} todo`;

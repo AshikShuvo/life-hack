@@ -6,7 +6,7 @@ export declare class TodoService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);
     create(createTodoDto: CreateTodoDto): Promise<Todo>;
-    findAll(): string;
+    findAll(id: number): Promise<Todo[]>;
     findOne(id: number): string;
     update(id: number, updateTodoDto: UpdateTodoDto): string;
     remove(id: number): string;

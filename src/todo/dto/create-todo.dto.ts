@@ -9,7 +9,7 @@ export class CreateTodoDto {
   startingDate: Date;
   estimatedDate: Date;
   rejectedAt : Date;
-  authorId : number;
+   authorId : number;
 }
 enum TodoStatus{
   OPEN="OPEN",

@@ -19,10 +19,28 @@ Authorization: Bearer {{token}}
 
 
 ### signIn
-Post http://localhost:3000/user/local/signIn
+POST http://localhost:3000/user/local/signIn
 Content-Type: application/json
 
 {
     "email":"ashik1999@outlook.com",
     "password":"password_123"
 }
+
+### Add Todo By A User
+
+POST http://localhost:3000/todo
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+   "name" : "third Task",
+  "description" :  "a simple Discription",
+  "authorId" : 2
+}
+
+### get all Todo of a user
+
+GET  http://localhost:3000/todo
+Content-Type: application/json
+Authorization: Bearer {{token}}

@@ -7,14 +7,19 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 @Injectable()
 export class TodoService {
   constructor(private readonly prismaService:PrismaService){}
-  async create(createTodoDto: CreateTodoDto) : Promise<Todo>{
+  async create(createTodoDto: CreateTodoDto ) : Promise<Todo>{
     return await this.prismaService.todo.create({
       data:createTodoDto
     })
   }
 
-  findAll() {
-    return `This action returns all todo`;
+ async findAll(id: number): Promise<Todo[]>{
+   console.log(id)
+    return await this.prismaService.todo.findMany({
+      where:{
+        authorId:id
+      }
+    })
   }
 
   findOne(id: number) {
